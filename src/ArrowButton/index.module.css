@@ -1,0 +1,18 @@
+.arrow{
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+    text-indent: 10em;
+    overflow: hidden;
+    align-self: center;
+}
+
+.arrow_inactive{
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.arrow_active{
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+}

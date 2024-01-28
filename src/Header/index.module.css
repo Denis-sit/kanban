@@ -1,0 +1,21 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.875em;
+    background: #0067A3;
+}
+
+.bord_name{
+    display: flex;
+    align-items: center;
+    font-family: "Roboto";
+    font-size: 1.75em;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.container{
+    display: flex;
+    gap: 10px;
+}
