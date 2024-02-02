@@ -8,11 +8,11 @@
 }
 
 .arrow_inactive{
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 
 .arrow_active{
-    border-left: 1px solid black;
-    border-top: 1px solid black;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
 }

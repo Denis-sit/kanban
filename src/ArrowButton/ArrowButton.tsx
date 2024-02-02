@@ -1,7 +1,17 @@
 import styles from "./index.module.css";
 
-export default function ArrowButton(): JSX.Element {
+export interface ArrowButtonProps {
+  click: boolean;
+}
+
+export default function ArrowButton({ click }: ArrowButtonProps): JSX.Element {
   return (
-    <div className={`${styles.arrow} ${styles.arrow_inactive}`}>Arrow</div>
+    <div
+      className={`${styles.arrow} ${
+        click ? styles.arrow_active : styles.arrow_inactive
+      } `}
+    >
+      Arrow
+    </div>
   );
 }

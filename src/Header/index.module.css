@@ -15,7 +15,11 @@
     line-height: normal;
 }
 
-.container{
+.button{
     display: flex;
+    position: relative;
     gap: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
