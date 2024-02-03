@@ -1,6 +1,7 @@
-import HeaderPanel from "./Header/HeaderPanel";
+import HeaderPanel from "./components/Header/HeaderPanel";
 import "./App.css";
-import Footer from "./Footer/Footer";
+import Footer from "./components/Footer/Footer";
+import Board from "./components/Board/Board";
 
 function App() {
   return (
@@ -8,7 +9,9 @@ function App() {
       <header className="App-header">
         <HeaderPanel />
       </header>
-      <main></main>
+      <main className="main">
+        <Board />
+      </main>
       <footer>
         <Footer />
       </footer>
