@@ -14,11 +14,11 @@ export default function HeaderPanel(): JSX.Element {
     <>
       <header className={styles.header}>
         <div className={styles.bord_name}>Awesome Kanban Board</div>
-        <a href="#profile" className={styles.button} onClick={clickProfile}>
+        <div className={styles.button} onClick={clickProfile}>
           <Profile />
           <ArrowButton click={click} />
           <ProfileMenu click={click} />
-        </a>
+        </div>
       </header>
     </>
   );
