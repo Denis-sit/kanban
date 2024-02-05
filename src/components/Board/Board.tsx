@@ -12,10 +12,14 @@ export default function Board(): JSX.Element {
   const dataArray = Object.values(data);
   function handlerClick(title: string): void {
     setAddClick((prev) => {
-      return {
-        ...prev,
-        [title]: !prev[title],
-      };
+      if (Object.keys(prev).length === 0) {
+        console.log(addClick);
+
+        return { ...prev, [title]: !prev[title] };
+      } else {
+        console.log(addClick);
+        return {};
+      }
     });
   }
   return (
@@ -30,7 +34,12 @@ export default function Board(): JSX.Element {
             {addClick[item.title] && (
               <input className={styles.input} name="addTask" type="text" />
             )}
-            <Button onClick={() => handlerClick(item.title)}>+ Add Card</Button>
+            <Button
+              styles={styles.button}
+              onClick={() => handlerClick(item.title)}
+            >
+              {Object.keys(addClick).length === 0 ? "+ Add Card" : "Submit"}
+            </Button>
           </div>
         );
       })}
