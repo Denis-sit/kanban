@@ -1,16 +1,17 @@
-import IData from "./TypeData";
+import { IData } from "./TypeData";
+import { v4 as uuid } from "uuid";
 
 const data: IData = [
   {
     title: "Backlog",
     issues: [
       {
-        id: 12345,
+        id: uuid(),
         name: "Sprint bugfix Backlog",
         description: "Fix all the bugs",
       },
       {
-        id: 123445455,
+        id: uuid(),
         name: "Sprint bugfix Backlog2",
         description: "Fix all the bugs",
       },
@@ -20,7 +21,7 @@ const data: IData = [
     title: "Ready",
     issues: [
       {
-        id: 125,
+        id: uuid(),
         name: "Sprint bugfix Ready",
         description: "Fix all the bugs",
       },
@@ -30,7 +31,7 @@ const data: IData = [
     title: "In Progress",
     issues: [
       {
-        id: 1234,
+        id: uuid(),
         name: "Sprint bugfix In Progress",
         description: "Fix all the bugs",
       },
@@ -40,7 +41,7 @@ const data: IData = [
     title: "Finished",
     issues: [
       {
-        id: 2388,
+        id: uuid(),
         name: "Sprint bugfix Finished",
         description: "Fix all the bugs",
       },

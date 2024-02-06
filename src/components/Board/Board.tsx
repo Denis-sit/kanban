@@ -1,48 +1,85 @@
-import data from "../../data";
-import { v4 as uuid } from "uuid";
 import styles from "./index.module.css";
 import Task from "../Task/Task";
 import Button from "../Button/Button";
+import { IIssues, IStatusItem } from "../../TypeData";
+import { v4 as uuid } from "uuid";
 import { useState } from "react";
+import Select from "../Select/Select";
 
-export default function Board(): JSX.Element {
-  console.log(data);
-  const [addClick, setAddClick] = useState<Record<string, boolean>>({});
+interface BoardProps extends IStatusItem {
+  updateData: (title: string, issues: IIssues[]) => void;
+}
 
-  const dataArray = Object.values(data);
-  function handlerClick(title: string): void {
-    setAddClick((prev) => {
-      if (Object.keys(prev).length === 0) {
-        console.log(addClick);
+export default function Board({
+  title,
+  issues,
+  updateData,
+}: BoardProps): JSX.Element {
+  const [buttonClick, setButtonClick] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [submitButton, setSubmitButton] = useState(true);
 
-        return { ...prev, [title]: !prev[title] };
-      } else {
-        console.log(addClick);
-        return {};
-      }
-    });
+  function handlerClick() {
+    setButtonClick((prev) => !prev);
+    setSubmitButton((prev) => !prev);
   }
+
+  function handlerClickSubmit() {
+    const task: IIssues = {
+      id: uuid(),
+      name: inputValue,
+    };
+    const updatedIssues = [...issues, task];
+    updateData(title, updatedIssues);
+    setInputValue("");
+  }
+
+  const handlerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
   return (
     <>
-      {dataArray.map((item) => {
-        return (
-          <div className={styles.board} key={uuid()}>
-            <p className={styles.title} key={uuid()}>
-              {item.title}
-            </p>
-            <Task item={item} />
-            {addClick[item.title] && (
-              <input className={styles.input} name="addTask" type="text" />
-            )}
-            <Button
-              styles={styles.button}
-              onClick={() => handlerClick(item.title)}
-            >
-              {Object.keys(addClick).length === 0 ? "+ Add Card" : "Submit"}
-            </Button>
-          </div>
-        );
-      })}
+      <div className={styles.board}>
+        <p className={styles.title}>{title}</p>
+        {issues.map((task) => (
+          <Task name={task.name} key={task.id} />
+        ))}
+
+        {buttonClick && title === "Backlog" ? (
+          <input
+            className={styles.input}
+            value={inputValue}
+            onChange={handlerChange}
+            name="addTask"
+            type="text"
+          />
+        ) : buttonClick && title !== "Backlog" ? (
+          <Select issues={issues} />
+        ) : null}
+
+        {submitButton && (
+          <Button
+            disabled={buttonClick && inputValue.trim() === ""}
+            styles={styles.button}
+            onClick={handlerClick}
+          >
+            + Add Card
+          </Button>
+        )}
+        {buttonClick && (
+          <Button
+            disabled={buttonClick && inputValue.trim() === ""}
+            styles={styles.button}
+            onClick={() => {
+              handlerClick();
+              handlerClickSubmit();
+            }}
+          >
+            Submit
+          </Button>
+        )}
+      </div>
     </>
   );
 }

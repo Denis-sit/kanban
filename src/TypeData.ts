@@ -1,7 +1,7 @@
 export interface IIssues {
-  id: number;
+  id: string;
   name: string;
-  description: string;
+  description?: string;
 }
 
 export interface IStatusItem {
@@ -9,6 +9,4 @@ export interface IStatusItem {
   issues: IIssues[];
 }
 
-export default interface IData {
-  [index: number]: IStatusItem;
-}
+export interface IData extends Array<IStatusItem> {}
