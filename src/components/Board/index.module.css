@@ -1,5 +1,6 @@
 .board{
     width: 282px;
+    max-height: 768px;
     border-radius: 5px;
     background: #CBCBCB;
     padding: 12px;
@@ -9,7 +10,17 @@
     font-weight: 400;
     line-height: 21px;
     height: max-content;
+    overflow-y: auto;
 }
+
+.board::-webkit-scrollbar {
+    width: 8px;
+}
+
+.board::-webkit-scrollbar-thumb {
+    background-color: #fff; 
+    border-radius: 5px; 
+  }
 
 .title{
     margin: 0;
@@ -26,5 +37,21 @@
 
 .button{
     margin-top: 5px;
-    color: rgb(94, 108, 132);
+    color: #5E6C84;
+    background: transparent;
+}
+
+.button:hover{
+    background: #0079BF;
+    color: #FFFFFF;
+}
+
+.button__add{
+    margin-top: 5px;
+    color: #5E6C84;
+    background: transparent;
+}
+
+.button__add:hover{
+    background:#FFFFFF;
 }

@@ -96,7 +96,7 @@ export default function Board({
         {submitButton && (
           <Button
             disabled={disabled}
-            styles={styles.button}
+            styles={styles.button__add}
             onClick={handlerClick}
           >
             + Add Card

@@ -1,4 +1,5 @@
 import { IIssues } from "../../TypeData";
+import styles from "./index.module.css";
 
 type TOptions = {
   filteredData: IIssues[];
@@ -12,7 +13,7 @@ export default function Select({
   console.log(filteredData, "select");
 
   return (
-    <select name="select" onChange={onChange}>
+    <select className={styles.select} name="select" onChange={onChange}>
       <option key={1}>Выберете задачу из списка</option>
       {filteredData.map((options, i) => (
         <option key={filteredData[i].id}>{options.name}</option>

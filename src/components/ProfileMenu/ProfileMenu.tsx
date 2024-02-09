@@ -8,8 +8,12 @@ export default function ProfileMenu() {
 
   return (
     <div className={styles.container}>
-      <Button onClick={handlerButtonClick}>Profile</Button>
-      <Button onClick={handlerButtonClick}>Log Out</Button>
+      <Button onClick={handlerButtonClick} styles={styles.button}>
+        Profile
+      </Button>
+      <Button onClick={handlerButtonClick} styles={styles.button}>
+        Log Out
+      </Button>
     </div>
   );
 }

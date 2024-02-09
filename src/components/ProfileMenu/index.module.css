@@ -10,6 +10,7 @@
     background-color: #fff;
     border-radius: 5px;
     padding: 0.5em;
+    z-index: 0;
 }
 
 .container::before{
@@ -21,8 +22,36 @@
     top: -10px;
     transform: rotate(45deg);
     right: 43px;
+    z-index: -1;
 }
 
 .hide{
     display: none;
+}
+
+.button{
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    text-align: center;
+    font-family: 'Roboto';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 0.313em;
+    cursor: pointer;
+    background: transparent;
+    text-align: left;
+}
+
+.button:hover{
+    background-color: #0079BF;
+    color: rgb(255, 255, 255);
+}
+
+.button:active{
+    background-color: #0079BF;
+    color: rgb(255, 255, 255);
 }
