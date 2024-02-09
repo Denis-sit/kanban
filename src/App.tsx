@@ -5,15 +5,22 @@ import Board from "./components/Board/Board";
 import HeaderPanel from "./components/Header/HeaderPanel";
 import Footer from "./components/Footer/Footer";
 import { IIssues } from "./TypeData";
+import { v4 as uuid } from "uuid";
 
 function App() {
   const [newData, setNewData] = useState(data);
 
-  function updateData(title: string, value: IIssues[]) {
-    const updatedData = newData.map((item) =>
-      item.title === title && value ? { ...item, issues: value } : item
-    );
-
+  function updateData(title: string, value: IIssues) {
+    const updatedData = newData.map((item) => {
+      if (item.title === title) {
+        return { ...item, issues: [...item.issues, value] };
+      } else {
+        return {
+          ...item,
+          issues: item.issues.filter((task) => task.id !== value.id),
+        };
+      }
+    });
     setNewData(updatedData);
   }
 
@@ -23,26 +30,15 @@ function App() {
         <HeaderPanel />
       </header>
       <main className="main">
-        <Board
-          title={newData[0].title}
-          issues={newData[0].issues}
-          updateData={updateData}
-        />
-        <Board
-          title={newData[1].title}
-          issues={newData[1].issues}
-          updateData={updateData}
-        />
-        <Board
-          title={newData[2].title}
-          issues={newData[2].issues}
-          updateData={updateData}
-        />
-        <Board
-          title={newData[3].title}
-          issues={newData[3].issues}
-          updateData={updateData}
-        />
+        {newData.map((item, i) => (
+          <Board
+            title={item.title}
+            issues={item.issues}
+            updateData={updateData}
+            key={uuid()}
+            selectData={i > 0 ? newData[i - 1].issues : false}
+          />
+        ))}
       </main>
       <footer>
         <Footer />

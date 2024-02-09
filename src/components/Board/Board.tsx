@@ -6,18 +6,40 @@ import { v4 as uuid } from "uuid";
 import { useState } from "react";
 import Select from "../Select/Select";
 
+type SelectData = IIssues[] | boolean;
+
 interface BoardProps extends IStatusItem {
-  updateData: (title: string, issues: IIssues[]) => void;
+  title: string;
+  issues: IIssues[];
+  updateData: (title: string, issues: IIssues) => void;
+  key: string;
+  selectData: SelectData;
 }
 
 export default function Board({
   title,
   issues,
   updateData,
+  selectData,
 }: BoardProps): JSX.Element {
   const [buttonClick, setButtonClick] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [submitButton, setSubmitButton] = useState(true);
+  const [selectValue, setSelectValue] = useState("");
+  let filteredData: IIssues[] = [];
+
+  const selectDataUpdate = () => {
+    const task = filteredData.find((issues) => issues.name === selectValue);
+    return task;
+  };
+
+  const disabled = buttonClick && inputValue.trim() === "";
+
+  if (Array.isArray(selectData)) {
+    filteredData = selectData.filter(
+      (item): item is IIssues => !!item
+    ) as IIssues[];
+  }
 
   function handlerClick() {
     setButtonClick((prev) => !prev);
@@ -25,24 +47,35 @@ export default function Board({
   }
 
   function handlerClickSubmit() {
-    const task: IIssues = {
-      id: uuid(),
-      name: inputValue,
-    };
-    const updatedIssues = [...issues, task];
-    updateData(title, updatedIssues);
+    if (inputValue) {
+      let task: IIssues = {
+        id: uuid(),
+        name: inputValue,
+      };
+      updateData(title, task);
+    } else {
+      let task = selectDataUpdate();
+      if (task) {
+        updateData(title, task);
+      }
+    }
     setInputValue("");
   }
 
-  const handlerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlerInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+    console.log(inputValue, "as");
+  };
+
+  const handlerSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectValue(event.target.value);
   };
 
   return (
     <>
       <div className={styles.board}>
         <p className={styles.title}>{title}</p>
-        {issues.map((task) => (
+        {issues.map((task, i) => (
           <Task name={task.name} key={task.id} />
         ))}
 
@@ -50,17 +83,17 @@ export default function Board({
           <input
             className={styles.input}
             value={inputValue}
-            onChange={handlerChange}
+            onChange={handlerInputChange}
             name="addTask"
             type="text"
           />
         ) : buttonClick && title !== "Backlog" ? (
-          <Select issues={issues} />
+          <Select filteredData={filteredData} onChange={handlerSelectChange} />
         ) : null}
 
         {submitButton && (
           <Button
-            disabled={buttonClick && inputValue.trim() === ""}
+            disabled={disabled}
             styles={styles.button}
             onClick={handlerClick}
           >
@@ -69,7 +102,7 @@ export default function Board({
         )}
         {buttonClick && (
           <Button
-            disabled={buttonClick && inputValue.trim() === ""}
+            disabled={title === "Backlog" && disabled}
             styles={styles.button}
             onClick={() => {
               handlerClick();

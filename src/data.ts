@@ -25,6 +25,11 @@ const data: IData = [
         name: "Sprint bugfix Ready",
         description: "Fix all the bugs",
       },
+      {
+        id: uuid(),
+        name: "Sprint bugfix Ready2",
+        description: "Fix all the bugs",
+      },
     ],
   },
   {

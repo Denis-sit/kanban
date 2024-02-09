@@ -17,7 +17,7 @@ export default function HeaderPanel(): JSX.Element {
         <div className={styles.button} onClick={clickProfile}>
           <Profile />
           <ArrowButton click={click} />
-          <ProfileMenu click={click} />
+          {click && <ProfileMenu />}
         </div>
       </header>
     </>

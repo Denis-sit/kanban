@@ -1,17 +1,20 @@
 import { IIssues } from "../../TypeData";
-import { v4 as uuid } from "uuid";
 
 type TOptions = {
-  issues: IIssues[];
+  filteredData: IIssues[];
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-export default function Select({ issues }: TOptions): JSX.Element {
-  console.log(issues, "select");
+export default function Select({
+  filteredData,
+  onChange,
+}: TOptions): JSX.Element {
+  console.log(filteredData, "select");
 
   return (
-    <select name="select">
-      {issues.map((options) => (
-        <option key={uuid()}>{options.name}</option>
+    <select name="select" onChange={onChange}>
+      {filteredData.map((options, i) => (
+        <option key={filteredData[i].id}>{options.name}</option>
       ))}
     </select>
   );
