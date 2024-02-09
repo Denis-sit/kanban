@@ -13,6 +13,7 @@ export default function Select({
 
   return (
     <select name="select" onChange={onChange}>
+      <option key={1}>Выберете задачу из списка</option>
       {filteredData.map((options, i) => (
         <option key={filteredData[i].id}>{options.name}</option>
       ))}
