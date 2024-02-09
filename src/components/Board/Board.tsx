@@ -47,6 +47,8 @@ export default function Board({
   }
 
   function handlerClickSubmit() {
+    console.log(inputValue);
+
     if (inputValue) {
       let task: IIssues = {
         id: uuid(),
@@ -102,7 +104,9 @@ export default function Board({
         )}
         {buttonClick && (
           <Button
-            disabled={title === "Backlog" && disabled}
+            disabled={
+              title === "Backlog" || selectValue === "" ? disabled : false
+            }
             styles={styles.button}
             onClick={() => {
               handlerClick();
