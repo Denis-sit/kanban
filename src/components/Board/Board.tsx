@@ -11,7 +11,7 @@ type SelectData = IIssues[] | boolean;
 interface BoardProps extends IStatusItem {
   title: string;
   issues: IIssues[];
-  updateData: (title: string, issues: IIssues) => void;
+  updateData: (title: string, issues: IIssues, flag?: boolean) => void;
   key: string;
   selectData: SelectData;
 }
@@ -40,15 +40,13 @@ export default function Board({
       (item): item is IIssues => !!item
     ) as IIssues[];
   }
-  console.log(filteredData, "a");
+
   function handlerClick() {
     setButtonClick((prev) => !prev);
     setSubmitButton((prev) => !prev);
   }
 
   function handlerClickSubmit() {
-    console.log(inputValue);
-
     if (inputValue) {
       let task: IIssues = {
         id: uuid(),
@@ -72,12 +70,22 @@ export default function Board({
     setSelectValue(option);
   };
 
+  const handleDelit = (task: IIssues): void => {
+    updateData(title, task, true);
+  };
   return (
     <>
       <div className={styles.board}>
         <p className={styles.title}>{title}</p>
-        {issues.map((task, i) => (
-          <Task name={task.name} key={task.id} />
+        {issues.map((task) => (
+          <Task name={task.name} key={task.id}>
+            <Button
+              styles={styles.button__del}
+              onClick={() => handleDelit(task)}
+            >
+              &#10006;
+            </Button>
+          </Task>
         ))}
 
         {buttonClick && title === "Backlog" ? (

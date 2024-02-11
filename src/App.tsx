@@ -24,9 +24,14 @@ function App() {
     });
   }, [newData]);
 
-  function updateData(title: string, value: IIssues) {
+  function updateData(title: string, value: IIssues, flag?: boolean) {
     const updatedData = newData.map((item: IStatusItem) => {
-      if (item.title === title) {
+      if (item.title === title && flag) {
+        const tasks = item.issues.filter(
+          (item: IIssues) => item.id !== value.id
+        );
+        return { ...item, issues: tasks };
+      } else if (item.title === title) {
         return { ...item, issues: [...item.issues, value] };
       } else {
         return {
