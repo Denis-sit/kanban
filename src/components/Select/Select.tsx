@@ -3,20 +3,26 @@ import styles from "./index.module.css";
 
 type TOptions = {
   filteredData: IIssues[];
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  selectChange: (option: string) => void;
 };
 
 export default function Select({
   filteredData,
-  onChange,
+  selectChange,
 }: TOptions): JSX.Element {
-  console.log(filteredData, "select");
+  const handlerSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    selectChange(e.target.value);
+  };
 
   return (
-    <select className={styles.select} name="select" onChange={onChange}>
+    <select
+      className={styles.select}
+      name="select"
+      onChange={handlerSelectChange}
+    >
       <option key={1}>Выберете задачу из списка</option>
-      {filteredData.map((options, i) => (
-        <option key={filteredData[i].id}>{options.name}</option>
+      {filteredData.map((options) => (
+        <option key={options.id}>{options.name}</option>
       ))}
     </select>
   );

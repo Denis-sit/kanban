@@ -40,7 +40,7 @@ export default function Board({
       (item): item is IIssues => !!item
     ) as IIssues[];
   }
-
+  console.log(filteredData, "a");
   function handlerClick() {
     setButtonClick((prev) => !prev);
     setSubmitButton((prev) => !prev);
@@ -66,11 +66,10 @@ export default function Board({
 
   const handlerInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    console.log(inputValue, "as");
   };
 
-  const handlerSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectValue(event.target.value);
+  const selectChange = (option: string) => {
+    setSelectValue(option);
   };
 
   return (
@@ -90,7 +89,7 @@ export default function Board({
             type="text"
           />
         ) : buttonClick && title !== "Backlog" ? (
-          <Select filteredData={filteredData} onChange={handlerSelectChange} />
+          <Select filteredData={filteredData} selectChange={selectChange} />
         ) : null}
 
         {submitButton && (

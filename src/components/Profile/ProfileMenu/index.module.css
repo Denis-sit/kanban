@@ -5,7 +5,7 @@
     align-items: flex-start;
     gap: 5px;
     width: 134px;
-    left: -76px;
+    left: -82px;
     top: 54px;
     background-color: #fff;
     border-radius: 5px;
@@ -21,7 +21,7 @@
     background: #fff;
     top: -10px;
     transform: rotate(45deg);
-    right: 43px;
+    right: 38px;
     z-index: -1;
 }
 

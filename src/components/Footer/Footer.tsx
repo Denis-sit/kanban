@@ -1,11 +1,20 @@
 import styles from "./index.module.css";
 
-export default function Footer(): JSX.Element {
+type taskCounter = {
+  active: number;
+  finished: number;
+};
+
+type FooterProps = {
+  taskCounter: taskCounter;
+};
+
+export default function Footer({ taskCounter }: FooterProps): JSX.Element {
   return (
     <>
       <div className={styles.container}>
-        <p>Active tasks: &lt;N&gt;</p>
-        <p>Finished tasks: &lt;M&gt;</p>
+        <p>Active tasks: &lt;{taskCounter.active}&gt;</p>
+        <p>Finished tasks: &lt;{taskCounter.finished}&gt;</p>
       </div>
       <p>Kanban board by &lt;NAME&gt;, &lt;YEAR&gt;</p>
     </>

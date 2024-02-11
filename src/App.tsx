@@ -5,16 +5,23 @@ import Board from "./components/Board/Board";
 import HeaderPanel from "./components/Header/HeaderPanel";
 import Footer from "./components/Footer/Footer";
 import { IIssues, IStatusItem } from "./TypeData";
-import { v4 as uuid } from "uuid";
 
 function App() {
   const [newData, setNewData] = useState(() => {
     const localData = localStorage.getItem("data");
     return localData ? JSON.parse(localData) : data;
   });
+  const [taskCounter, settaskCounter] = useState({
+    active: newData[2].issues.length,
+    finished: newData[3].issues.length,
+  });
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(newData));
+    settaskCounter({
+      active: newData[2].issues.length,
+      finished: newData[3].issues.length,
+    });
   }, [newData]);
 
   function updateData(title: string, value: IIssues) {
@@ -42,13 +49,13 @@ function App() {
             title={item.title}
             issues={item.issues}
             updateData={updateData}
-            key={uuid()}
+            key={item.title}
             selectData={i > 0 ? newData[i - 1].issues : false}
           />
         ))}
       </main>
       <footer>
-        <Footer />
+        <Footer taskCounter={taskCounter} />
       </footer>
     </div>
   );

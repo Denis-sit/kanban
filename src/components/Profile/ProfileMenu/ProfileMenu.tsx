@@ -1,4 +1,4 @@
-import Button from "../Button/Button";
+import Button from "../../Button/Button";
 import styles from "./index.module.css";
 
 export default function ProfileMenu() {

@@ -2,7 +2,7 @@ import Profile from "../Profile/Profile";
 import styles from "./index.module.css";
 import ArrowButton from "../ArrowButton/ArrowButton";
 import { useState } from "react";
-import ProfileMenu from "../ProfileMenu/ProfileMenu";
+import ProfileMenu from "../Profile/ProfileMenu/ProfileMenu";
 
 export default function HeaderPanel(): JSX.Element {
   const [click, setClick] = useState(false);
