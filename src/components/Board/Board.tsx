@@ -5,6 +5,7 @@ import { IIssues, IStatusItem } from "../../TypeData";
 import { v4 as uuid } from "uuid";
 import { useState } from "react";
 import Select from "../Select/Select";
+import { Link } from "react-router-dom";
 
 type SelectData = IIssues[] | boolean;
 
@@ -73,19 +74,26 @@ export default function Board({
   const handleDelit = (task: IIssues): void => {
     updateData(title, task, true);
   };
+
   return (
     <>
       <div className={styles.board}>
         <p className={styles.title}>{title}</p>
         {issues.map((task) => (
-          <Task name={task.name} key={task.id}>
-            <Button
-              styles={styles.button__del}
-              onClick={() => handleDelit(task)}
-            >
-              &#10006;
-            </Button>
-          </Task>
+          <Link to={`/task/${task.id}`} state={{ task }} key={task.id}>
+            <Task name={task.name} key={task.id}>
+              <Button
+                styles={styles.button__del}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleDelit(task);
+                  event.preventDefault();
+                }}
+              >
+                &#10006;
+              </Button>
+            </Task>
+          </Link>
         ))}
 
         {buttonClick && title === "Backlog" ? (

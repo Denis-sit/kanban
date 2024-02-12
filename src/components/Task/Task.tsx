@@ -8,11 +8,9 @@ type TNameTask = {
 
 const Task: React.FC<TNameTask> = ({ name, children }) => {
   return (
-    <>
-      <div className={styles.task}>
-        {name} {children}
-      </div>
-    </>
+    <div className={styles.task}>
+      {name} {children}
+    </div>
   );
 };
 

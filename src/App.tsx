@@ -1,3 +1,5 @@
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import data from "./data";
 import { useState, useEffect } from "react";
@@ -6,20 +8,22 @@ import HeaderPanel from "./components/Header/HeaderPanel";
 import Footer from "./components/Footer/Footer";
 import { IIssues, IStatusItem } from "./TypeData";
 
+import Description from "./components/Task/Description/Description";
+
 function App() {
   const [newData, setNewData] = useState(() => {
     const localData = localStorage.getItem("data");
     return localData ? JSON.parse(localData) : data;
   });
   const [taskCounter, settaskCounter] = useState({
-    active: newData[2].issues.length,
+    active: newData[0].issues.length,
     finished: newData[3].issues.length,
   });
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(newData));
     settaskCounter({
-      active: newData[2].issues.length,
+      active: newData[0].issues.length,
       finished: newData[3].issues.length,
     });
   }, [newData]);
@@ -44,25 +48,36 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <HeaderPanel />
-      </header>
-      <main className="main">
-        {newData.map((item: IStatusItem, i: number) => (
-          <Board
-            title={item.title}
-            issues={item.issues}
-            updateData={updateData}
-            key={item.title}
-            selectData={i > 0 ? newData[i - 1].issues : false}
+    <BrowserRouter>
+      <div className="App">
+        <header className="App-header">
+          <HeaderPanel />
+        </header>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <main className="main">
+                {newData.map((item: IStatusItem, i: number) => (
+                  <Board
+                    title={item.title}
+                    issues={item.issues}
+                    updateData={updateData}
+                    key={item.title}
+                    selectData={i > 0 ? newData[i - 1].issues : false}
+                  />
+                ))}
+              </main>
+            }
           />
-        ))}
-      </main>
-      <footer>
-        <Footer taskCounter={taskCounter} />
-      </footer>
-    </div>
+
+          <Route path="/task/:id" element={<Description />} />
+        </Routes>
+        <footer>
+          <Footer taskCounter={taskCounter} />
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
