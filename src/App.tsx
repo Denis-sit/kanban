@@ -1,18 +1,17 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
-import data from "./data";
-import { useState, useEffect } from "react";
-import Board from "./components/Board/Board";
-import HeaderPanel from "./components/Header/HeaderPanel";
-import Footer from "./components/Footer/Footer";
-import { IIssues, IStatusItem } from "./TypeData";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css';
+import data from './data';
+import { useState, useEffect } from 'react';
+import Board from './components/Board/Board';
+import HeaderPanel from './components/Header/HeaderPanel';
+import Footer from './components/Footer/Footer';
+import { IIssues, IStatusItem } from './TypeData';
 
-import Description from "./components/Task/Description/Description";
+import Description from './components/Task/Description/Description';
 
 function App() {
   const [newData, setNewData] = useState(() => {
-    const localData = localStorage.getItem("data");
+    const localData = localStorage.getItem('data');
     return localData ? JSON.parse(localData) : data;
   });
   const [taskCounter, settaskCounter] = useState({
@@ -21,7 +20,7 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(newData));
+    localStorage.setItem('data', JSON.stringify(newData));
     settaskCounter({
       active: newData[0].issues.length,
       finished: newData[3].issues.length,
@@ -32,7 +31,7 @@ function App() {
     const updatedData = newData.map((item: IStatusItem) => {
       if (item.title === title && flag) {
         const tasks = item.issues.filter(
-          (item: IIssues) => item.id !== value.id
+          (item: IIssues) => item.id !== value.id,
         );
         return { ...item, issues: tasks };
       } else if (item.title === title) {
@@ -73,7 +72,7 @@ function App() {
 
           <Route path="/task/:id" element={<Description />} />
         </Routes>
-        <footer>
+        <footer className="footer">
           <Footer taskCounter={taskCounter} />
         </footer>
       </div>

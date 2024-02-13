@@ -1,8 +1,8 @@
-import React from "react";
-import style from "./index.module.css";
+import React from 'react';
+import style from './index.module.css';
 
 type Children = {
-  children: string;
+  children?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   styles?: string;
   disabled?: boolean;

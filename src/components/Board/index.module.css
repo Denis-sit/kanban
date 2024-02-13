@@ -61,12 +61,22 @@
 }
 
 .button__del{
-    padding: 1px 5px;
+    width: 15px;
+    height: 15px;
     font-size: 10px;
     background-color:#fff;
+    background-image: url('./delete.svg');
+    background-repeat: no-repeat;
+    overflow: hidden;
+    background-size: contain;
+    align-self: center;
 }
 
 .button__del:hover{
-    background-color:#CBCBCB;
+    scale: 1.2;
+}
+
+.link{
+    text-decoration: none
 }
 
