@@ -12,7 +12,7 @@ type SelectData = IIssues[] | boolean;
 interface BoardProps extends IStatusItem {
   title: string;
   issues: IIssues[];
-  updateData: (title: string, issues: IIssues, flag?: boolean) => void;
+  updateData: (title: string, issues: IIssues, flag: string) => void;
   key: string;
   selectData: SelectData;
 }
@@ -53,11 +53,11 @@ export default function Board({
         id: uuid(),
         name: inputValue,
       };
-      updateData(title, task);
+      updateData(title, task, 'add');
     } else {
       let task = selectDataUpdate();
       if (task) {
-        updateData(title, task);
+        updateData(title, task, 'next');
       }
     }
     setInputValue('');
@@ -72,7 +72,7 @@ export default function Board({
   };
 
   const handleDelit = (task: IIssues): void => {
-    updateData(title, task, true);
+    updateData(title, task, 'delete');
   };
 
   return (
@@ -83,7 +83,7 @@ export default function Board({
           <Link
             className={styles.link}
             to={`/task/${task.id}`}
-            state={{ task }}
+            state={{ task, title }}
             key={task.id}
           >
             <Task name={task.name} key={task.id}>

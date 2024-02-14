@@ -27,14 +27,26 @@ function App() {
     });
   }, [newData]);
 
-  function updateData(title: string, value: IIssues, flag?: boolean) {
+  function updateData(bordTitle: string, value: IIssues, flag: string) {
     const updatedData = newData.map((item: IStatusItem) => {
-      if (item.title === title && flag) {
+      if (item.title === bordTitle && flag === 'edit') {
+        let issues = item.issues.map((obj) => {
+          if (obj.id === value.id) {
+            return value;
+          } else {
+            return obj;
+          }
+        });
+        return { ...item, issues: issues };
+      } else if (item.title === bordTitle && flag === 'delete') {
         const tasks = item.issues.filter(
           (item: IIssues) => item.id !== value.id,
         );
         return { ...item, issues: tasks };
-      } else if (item.title === title) {
+      } else if (
+        item.title === bordTitle &&
+        (flag === 'add' || flag === 'next')
+      ) {
         return { ...item, issues: [...item.issues, value] };
       } else {
         return {
@@ -70,7 +82,10 @@ function App() {
             }
           />
 
-          <Route path="/task/:id" element={<Description />} />
+          <Route
+            path="/task/:id"
+            element={<Description updateData={updateData} />}
+          />
         </Routes>
         <footer className="footer">
           <Footer taskCounter={taskCounter} />
