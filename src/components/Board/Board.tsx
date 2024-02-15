@@ -1,11 +1,11 @@
-import styles from './index.module.css';
-import Task from '../Task/Task';
-import Button from '../Button/Button';
-import { IIssues, IStatusItem } from '../../TypeData';
-import { v4 as uuid } from 'uuid';
-import { useState } from 'react';
-import Select from '../Select/Select';
-import { Link } from 'react-router-dom';
+import styles from "./index.module.css";
+import Task from "../Task/Task";
+import Button from "../Button/Button";
+import { IIssues, IStatusItem } from "../../TypeData";
+import { v4 as uuid } from "uuid";
+import { useState } from "react";
+import Select from "../Select/Select";
+import { Link } from "react-router-dom";
 
 type SelectData = IIssues[] | boolean;
 
@@ -24,9 +24,9 @@ export default function Board({
   selectData,
 }: BoardProps): JSX.Element {
   const [buttonClick, setButtonClick] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [submitButton, setSubmitButton] = useState(true);
-  const [selectValue, setSelectValue] = useState('');
+  const [selectValue, setSelectValue] = useState("");
   let filteredData: IIssues[] = [];
 
   const selectDataUpdate = () => {
@@ -34,11 +34,11 @@ export default function Board({
     return task;
   };
 
-  const disabled = buttonClick && inputValue.trim() === '';
+  const disabled = buttonClick && inputValue.trim() === "";
 
   if (Array.isArray(selectData)) {
     filteredData = selectData.filter(
-      (item): item is IIssues => !!item,
+      (item): item is IIssues => !!item
     ) as IIssues[];
   }
 
@@ -53,14 +53,14 @@ export default function Board({
         id: uuid(),
         name: inputValue,
       };
-      updateData(title, task, 'add');
+      updateData(title, task, "add");
     } else {
       let task = selectDataUpdate();
       if (task) {
-        updateData(title, task, 'next');
+        updateData(title, task, "next");
       }
     }
-    setInputValue('');
+    setInputValue("");
   }
 
   const handlerInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +72,7 @@ export default function Board({
   };
 
   const handleDelit = (task: IIssues): void => {
-    updateData(title, task, 'delete');
+    updateData(title, task, "delete");
   };
 
   return (
@@ -99,7 +99,7 @@ export default function Board({
           </Link>
         ))}
 
-        {buttonClick && title === 'Backlog' ? (
+        {buttonClick && title === "Backlog" ? (
           <input
             className={styles.input}
             value={inputValue}
@@ -107,7 +107,7 @@ export default function Board({
             name="addTask"
             type="text"
           />
-        ) : buttonClick && title !== 'Backlog' ? (
+        ) : buttonClick && title !== "Backlog" ? (
           <Select filteredData={filteredData} selectChange={selectChange} />
         ) : null}
 
@@ -123,9 +123,9 @@ export default function Board({
         {buttonClick && (
           <Button
             disabled={
-              title === 'Backlog' || selectValue === '' ? disabled : false
+              title === "Backlog" || selectValue === "" ? disabled : false
             }
-            styles={styles.button}
+            styles={disabled ? styles.button__disabled : styles.button}
             onClick={() => {
               handlerClick();
               handlerClickSubmit();

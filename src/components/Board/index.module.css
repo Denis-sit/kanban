@@ -43,6 +43,14 @@
     padding: 0.313em;
 }
 
+.button__disabled{
+    margin-top: 5px;
+    color: #5E6C84;
+    background: transparent;
+    font-size: 18px;
+    padding: 0.313em;
+}
+
 .button:hover{
     background: #0079BF;
     color: #FFFFFF;
