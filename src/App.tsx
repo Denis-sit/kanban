@@ -8,91 +8,70 @@ import Footer from './components/Footer/Footer';
 import { IIssues, IStatusItem } from './TypeData';
 
 import Description from './components/Task/Description/Description';
+import { updateData } from './utilis/updateData';
 
 function App() {
-  const [newData, setNewData] = useState(() => {
-    const localData = localStorage.getItem('data');
-    return localData ? JSON.parse(localData) : data;
-  });
-  const [taskCounter, settaskCounter] = useState({
-    active: newData[0].issues.length,
-    finished: newData[3].issues.length,
-  });
+	const [newData, setNewData] = useState(() => {
+		const localData = localStorage.getItem('data');
+		return localData ? JSON.parse(localData) : data;
+	});
+	const [taskCounter, setTaskCounter] = useState({
+		active: newData.find((item: IIssues) => item.id === '1').issues.length,
+		finished: newData.find((item: IIssues) => item.id === '4').issues.length,
+	});
 
-  useEffect(() => {
-    localStorage.setItem('data', JSON.stringify(newData));
-    settaskCounter({
-      active: newData[0].issues.length,
-      finished: newData[3].issues.length,
-    });
-  }, [newData]);
+	useEffect(() => {
+		localStorage.setItem('data', JSON.stringify(newData));
+		setTaskCounter({
+			active: newData[0].issues.length,
+			finished: newData[3].issues.length,
+		});
+	}, [newData]);
 
-  function updateData(bordTitle: string, value: IIssues, flag: string) {
-    const updatedData = newData.map((item: IStatusItem) => {
-      if (item.title === bordTitle && flag === 'edit') {
-        let issues = item.issues.map((obj) => {
-          if (obj.id === value.id) {
-            return value;
-          } else {
-            return obj;
-          }
-        });
-        return { ...item, issues: issues };
-      } else if (item.title === bordTitle && flag === 'delete') {
-        const tasks = item.issues.filter(
-          (item: IIssues) => item.id !== value.id,
-        );
-        return { ...item, issues: tasks };
-      } else if (
-        item.title === bordTitle &&
-        (flag === 'add' || flag === 'next')
-      ) {
-        return { ...item, issues: [...item.issues, value] };
-      } else {
-        return {
-          ...item,
-          issues: item.issues.filter((task: IIssues) => task.id !== value.id),
-        };
-      }
-    });
-    setNewData(updatedData);
-  }
+	const handleUpdateDate = (
+		bordTitle: string,
+		value: IIssues,
+		flag: string,
+	) => {
+		setNewData(updateData(bordTitle, value, flag, newData));
+	};
 
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <HeaderPanel />
-        </header>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <main className="main">
-                {newData.map((item: IStatusItem, i: number) => (
-                  <Board
-                    title={item.title}
-                    issues={item.issues}
-                    updateData={updateData}
-                    key={item.title}
-                    selectData={i > 0 ? newData[i - 1].issues : false}
-                  />
-                ))}
-              </main>
-            }
-          />
+	return (
+		<BrowserRouter>
+			<div className="App">
+				<header className="App-header">
+					<HeaderPanel />
+				</header>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<main className="main">
+								{newData.map((item: IStatusItem, i: number) => (
+									<Board
+										title={item.title}
+										issues={item.issues}
+										id={item.id}
+										handleUpdateDate={handleUpdateDate}
+										key={item.id}
+										selectData={i > 0 ? newData[i - 1].issues : false}
+									/>
+								))}
+							</main>
+						}
+					/>
 
-          <Route
-            path="/task/:id"
-            element={<Description updateData={updateData} />}
-          />
-        </Routes>
-        <footer className="footer">
-          <Footer taskCounter={taskCounter} />
-        </footer>
-      </div>
-    </BrowserRouter>
-  );
+					<Route
+						path="/task/:id"
+						element={<Description handleUpdateDate={handleUpdateDate} />}
+					/>
+				</Routes>
+				<footer className="footer">
+					<Footer taskCounter={taskCounter} />
+				</footer>
+			</div>
+		</BrowserRouter>
+	);
 }
 
 export default App;
