@@ -11,6 +11,7 @@
 
 .main{
   display: flex;
+  min-height: calc(100vh - 182px);
   column-gap: 24px;
   justify-content: space-around;
   padding: 20px 16px;
