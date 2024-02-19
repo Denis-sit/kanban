@@ -1,34 +1,17 @@
-import { IStatusItem } from "../../TypeData";
-import styles from "./index.module.css";
-import { v4 as uuid } from "uuid";
+import styles from './index.module.css';
+import React, { ReactNode } from 'react';
 
-export default function Task({ item }: { item: IStatusItem }) {
-  return (
-    <>
-      {item.title === "Backlog" &&
-        item.issues.map((task) => (
-          <div key={uuid()} className={styles.task}>
-            {task.name}
-          </div>
-        ))}
-      {item.title === "Ready" &&
-        item.issues.map((task) => (
-          <div key={uuid()} className={styles.task}>
-            {task.name}
-          </div>
-        ))}
-      {item.title === "In Progress" &&
-        item.issues.map((task) => (
-          <div key={uuid()} className={styles.task}>
-            {task.name}
-          </div>
-        ))}
-      {item.title === "Finished" &&
-        item.issues.map((task) => (
-          <div key={uuid()} className={styles.task}>
-            {task.name}
-          </div>
-        ))}
-    </>
-  );
-}
+type TNameTask = {
+	name: string;
+	children?: ReactNode;
+};
+
+const Task: React.FC<TNameTask> = ({ name, children }) => {
+	return (
+		<div className={styles.task}>
+			{name} {children}
+		</div>
+	);
+};
+
+export default Task;

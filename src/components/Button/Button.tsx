@@ -1,15 +1,26 @@
-import React from "react";
-import style from "./index.module.css";
+import React from 'react';
+import style from './index.module.css';
 
 type Children = {
-  children: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+	children?: string;
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	styles?: string;
+	disabled?: boolean;
 };
 
-export default function Button({ children, onClick }: Children): JSX.Element {
-  return (
-    <button className={style.button} onClick={onClick}>
-      {children}
-    </button>
-  );
+export default function Button({
+	children,
+	onClick,
+	styles,
+	disabled,
+}: Children): JSX.Element {
+	return (
+		<button
+			disabled={disabled}
+			className={`${style.button} ${styles}`}
+			onClick={onClick}
+		>
+			{children}
+		</button>
+	);
 }

@@ -2,3 +2,21 @@
     display: flex;
     gap: 36px;
 }
+
+@media(max-width: 425px){
+    .container{
+        flex-direction: column;
+        gap: 0px;
+        margin: 0;
+        flex: 1;
+    }
+
+    .text_counter{
+        margin: 0;
+    }
+
+    .text_user{
+        flex: 1;
+        margin: 0;
+    }
+}

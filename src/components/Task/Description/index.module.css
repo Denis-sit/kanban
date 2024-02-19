@@ -1,0 +1,68 @@
+.container{
+    position: relative;
+    height: 530px;
+    padding: 20px 45px 20px 10px;;
+    margin: 20px;
+    background: #fff;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.task__name, .description{
+    margin-top: 0;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.button__close{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 4px;
+    color: black;
+}
+
+.button__save{
+    align-self: flex-end;
+    padding: 4px 30px;
+}
+
+.button__save:hover{
+    background: #0079BF;
+    color:#fff;
+}
+
+.button__close:hover{
+    background-color: #CBCBCB;
+}
+
+.input_name, .description__area{
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+}
+
+.task__name:hover, .description:hover{
+    border: 1px solid #CBCBCB;
+    cursor: pointer;
+}
+
+
+.description__area{
+    height: 400px;
+}
