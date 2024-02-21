@@ -37,7 +37,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter basename="/kanban/">
+    <BrowserRouter basename="/kanban">
       <div className="App">
         <header className="App-header">
           <HeaderPanel />
